@@ -1,0 +1,25 @@
+{
+  "name": "iwootcall",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "build": "turbo run build",
+    "clean:local": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-clean.ps1",
+    "dev": "turbo run dev --parallel",
+    "dev:stack": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-stack-up.ps1",
+    "dev:stack:down": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-stack-down.ps1",
+    "dev:start": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-start-apps.ps1",
+    "dev:stop": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-stop.ps1",
+    "lint": "turbo run lint",
+    "publish:check": "powershell -ExecutionPolicy Bypass -File ./scripts/publish-preflight.ps1",
+    "smoke:local": "powershell -ExecutionPolicy Bypass -File ./scripts/dev-smoke.ps1",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "turbo": "^2.1.3",
+    "typescript": "^5.9.3"
+  }
+}

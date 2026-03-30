@@ -1,0 +1,166 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+enum ModuleType {
+  FREECAB
+  FREEDRIVE
+  FREECARGO
+  FREERUN
+  FREESHUTTLE
+}
+
+enum WorkerStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum JobStatus {
+  PENDING
+  DISPATCHED
+  ACCEPTED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_WORKER
+}
+
+enum VehicleType {
+  SEDAN
+  VAN
+  DAMAS
+  LABO
+  TRUCK_1TON
+  TRUCK_2_5TON
+  MOTORCYCLE
+  BICYCLE
+  ANY
+}
+
+model Worker {
+  id            String       @id @default(cuid())
+  phone         String       @unique
+  name          String
+  module        ModuleType
+  vehicleType   VehicleType
+  vehicleNumber String
+  status        WorkerStatus @default(PENDING)
+  isOnline      Boolean      @default(false)
+  lat           Float?
+  lng           Float?
+  lastSeenAt    DateTime?
+  fcmToken      String?
+  jobs          Job[]
+  driveProfile  DriveProfile?
+  cargoProfile  CargoProfile?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Customer {
+  id          String            @id @default(cuid())
+  phone       String            @unique
+  name        String?
+  fcmToken    String?
+  elderlyMode Boolean           @default(false)
+  jobs        Job[]
+  favorites   Favorite[]
+  vehicles    CustomerVehicle[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+model Job {
+  id            String      @id @default(cuid())
+  module        ModuleType
+  customer      Customer    @relation(fields: [customerId], references: [id])
+  customerId    String
+  worker        Worker?     @relation(fields: [workerId], references: [id])
+  workerId      String?
+  status        JobStatus   @default(PENDING)
+  originLat     Float
+  originLng     Float
+  originAddress String
+  destLat       Float?
+  destLng       Float?
+  destAddress   String?
+  estimatedKm   Float?
+  estimatedFare Int?
+  fare          Int?
+  dispatchedAt  DateTime?
+  acceptedAt    DateTime?
+  arrivedAt     DateTime?
+  startedAt     DateTime?
+  completedAt   DateTime?
+  cancelledAt   DateTime?
+  cancelReason  String?
+  metadata      Json?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Favorite {
+  id         String   @id @default(cuid())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  label      String
+  lat        Float
+  lng        Float
+  address    String
+  createdAt  DateTime @default(now())
+}
+
+model DriveProfile {
+  id                 String @id @default(cuid())
+  worker             Worker @relation(fields: [workerId], references: [id])
+  workerId           String @unique
+  maxReturnWalkMeters Int   @default(1500)
+}
+
+model CustomerVehicle {
+  id         String   @id @default(cuid())
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String
+  label      String
+  carNumber  String
+  carModel   String?
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+}
+
+model CargoProfile {
+  id             String  @id @default(cuid())
+  worker         Worker  @relation(fields: [workerId], references: [id])
+  workerId       String  @unique
+  canLoadingHelp Boolean @default(false)
+  hasForklift    Boolean @default(false)
+  businessRegNo  String?
+}
+
+model ShuttleRoute {
+  id         String            @id @default(cuid())
+  name       String
+  regionCode String
+  isActive   Boolean           @default(true)
+  waypoints  Json
+  schedules  ShuttleSchedule[]
+  createdAt  DateTime          @default(now())
+}
+
+model ShuttleSchedule {
+  id          String       @id @default(cuid())
+  route       ShuttleRoute @relation(fields: [routeId], references: [id])
+  routeId     String
+  departure   DateTime
+  seats       Int          @default(8)
+  bookedSeats Int          @default(0)
+}

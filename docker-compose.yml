@@ -1,0 +1,111 @@
+name: iwootcall
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: iwootcall
+      POSTGRES_USER: iwootcall
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-iwootcall}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iwootcall"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql://iwootcall:iwootcall@postgres:5432/iwootcall}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production-min-32-chars}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3101,http://localhost:3102,http://localhost:3103}
+      ENABLED_MODULES: ${ENABLED_MODULES:-FREECAB,FREEDRIVE,FREECARGO,FREERUN}
+      PORT: 3001
+      HOST: 0.0.0.0
+      MAP_PROVIDER: ${MAP_PROVIDER:-osm}
+      OSRM_URL: ${OSRM_URL:-http://osrm:5000}
+      TILESERVER_URL: ${TILESERVER_URL:-http://tileserver:8080}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+
+  customer-app:
+    build:
+      context: .
+      dockerfile: apps/customer-app/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001}
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "3101:3101"
+
+  worker-app:
+    build:
+      context: .
+      dockerfile: apps/worker-app/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001}
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "3102:3102"
+
+  admin-panel:
+    build:
+      context: .
+      dockerfile: apps/admin-panel/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:3001}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-change-this-in-production-min-32-chars}
+      ADMIN_DEV_ENABLED: ${ADMIN_DEV_ENABLED:-true}
+    depends_on:
+      api:
+        condition: service_started
+    ports:
+      - "3103:3103"
+
+  tileserver:
+    image: maptiler/tileserver-gl:v3
+    command: --config /data/config.json
+    volumes:
+      - ./infra/tileserver:/data
+    ports:
+      - "8080:8080"
+
+  osrm:
+    image: osrm/osrm-backend:v5.27.1
+    command: osrm-routed --algorithm mld /data/korea-latest.osrm
+    volumes:
+      - ./infra/osm:/data
+    ports:
+      - "5000:5000"
+
+volumes:
+  postgres_data:
+  redis_data:

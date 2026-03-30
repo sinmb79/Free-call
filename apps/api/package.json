@@ -1,0 +1,42 @@
+{
+  "name": "@iwootcall/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --env-file=../../.env --watch --import tsx src/server.ts",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "postinstall": "prisma generate",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prisma": "dotenv -e ../../.env -- prisma",
+    "prisma:deploy": "dotenv -e ../../.env -- prisma migrate deploy",
+    "prisma:seed": "dotenv -e ../../.env -- tsx prisma/seed.ts",
+    "prisma:validate": "dotenv -e ../../.env -- prisma validate"
+  },
+  "prisma": {
+    "seed": "dotenv -e ../../.env -- tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "@iwootcall/shared": "workspace:*",
+    "@prisma/client": "^5.22.0",
+    "bullmq": "^5.63.1",
+    "fastify": "^5.1.0",
+    "firebase-admin": "^13.7.0",
+    "ioredis": "^5.8.0",
+    "jose": "^5.9.6",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "dotenv-cli": "^7.4.2",
+    "prisma": "^5.22.0",
+    "socket.io-client": "^4.8.1",
+    "tsx": "^4.19.2",
+    "vitest": "^2.1.3"
+  }
+}

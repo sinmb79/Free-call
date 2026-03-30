@@ -1,0 +1,12 @@
+{
+  "options": {
+    "paths": {
+      "root": "/data",
+      "fonts": "/usr/src/app/node_modules/tileserver-gl-styles/fonts",
+      "styles": "/usr/src/app/node_modules/tileserver-gl-styles/styles",
+      "mbtiles": "/data"
+    }
+  },
+  "styles": {},
+  "data": {}
+}
