@@ -3,6 +3,8 @@
 이웃콜은 한국형 생활 이동 노동을 위한 무수수료 오픈소스 배차 플랫폼입니다.
 택시, 대리, 화물, 퀵, 농어촌 셔틀처럼 서로 다른 이동 서비스를 하나의 공통 코어 위에서 운영할 수 있게 만드는 것이 목표입니다.
 
+![이웃콜 소개 배너](./docs/assets/iwootcall-github-banner.svg)
+
 ## 왜 만들었나요
 
 기존 플랫폼은 배차망을 통제하면서 기사와 라이더에게 높은 수수료를 부과하는 경우가 많습니다.
@@ -31,8 +33,9 @@
 ## 처음 보는 분은 이렇게 읽으면 됩니다
 
 1. 프로젝트가 왜 만들어졌는지와 전체 개념부터 이해하려면 [서비스 개요 문서](./docs/guides/SERVICE_OVERVIEW_KO.md)를 보세요.
-2. 바로 실행해 보고 싶다면 [초보자 실행 가이드](./docs/guides/BEGINNER_GUIDE_KO.md)를 보세요.
-3. GitHub에 공개 업로드하거나 배포 전에 점검하려면 [GitHub 공개배포 가이드](./docs/guides/GITHUB_PUBLISHING_KO.md)를 보세요.
+2. 개발자가 아니어도 전체 취지를 이해하고 싶다면 [비개발자 소개서](./docs/guides/NON_DEVELOPER_OVERVIEW_KO.md)를 보세요.
+3. 바로 실행해 보고 싶다면 [초보자 실행 가이드](./docs/guides/BEGINNER_GUIDE_KO.md)를 보세요.
+4. GitHub에 공개 업로드하거나 배포 전에 점검하려면 [GitHub 공개배포 가이드](./docs/guides/GITHUB_PUBLISHING_KO.md)를 보세요.
 
 ## 핵심 개념
 
@@ -45,6 +48,8 @@
 - `Core`: 인증, 배차, 실시간, 알림처럼 모듈이 공통으로 쓰는 기반 기능
 
 ## 개념도
+
+![이웃콜 구조 개념도](./docs/assets/iwootcall-architecture-overview.svg)
 
 ```mermaid
 flowchart LR

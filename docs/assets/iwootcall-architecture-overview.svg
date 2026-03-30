@@ -1,0 +1,110 @@
+<svg width="1280" height="900" viewBox="0 0 1280 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="900" rx="32" fill="#F8FAFC"/>
+  <text x="80" y="86" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="42" font-weight="800">
+    이웃콜 구조 개념도
+  </text>
+  <text x="80" y="126" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="22" font-weight="500">
+    여러 서비스 모듈이 하나의 공통 배차 코어를 공유하는 구조
+  </text>
+
+  <rect x="80" y="180" width="240" height="110" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="134" y="240" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="32" font-weight="800">
+    고객 앱
+  </text>
+  <text x="117" y="273" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="18" font-weight="600">
+    호출 생성 / 상태 확인
+  </text>
+
+  <rect x="520" y="180" width="240" height="110" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="574" y="240" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="32" font-weight="800">
+    기사 앱
+  </text>
+  <text x="540" y="273" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="18" font-weight="600">
+    호출 수락 / 위치 공유
+  </text>
+
+  <rect x="960" y="180" width="240" height="110" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="994" y="240" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="32" font-weight="800">
+    관리자 앱
+  </text>
+  <text x="988" y="273" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="18" font-weight="600">
+    상태 조회 / 운영 관리
+  </text>
+
+  <line x1="200" y1="290" x2="200" y2="355" stroke="#94A3B8" stroke-width="5"/>
+  <line x1="640" y1="290" x2="640" y2="355" stroke="#94A3B8" stroke-width="5"/>
+  <line x1="1080" y1="290" x2="1080" y2="355" stroke="#94A3B8" stroke-width="5"/>
+
+  <rect x="250" y="360" width="780" height="180" rx="28" fill="#0F766E"/>
+  <text x="534" y="420" fill="#FFFFFF" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="38" font-weight="800">
+    IwootCall API
+  </text>
+  <text x="396" y="456" fill="#CCFBF1" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="22" font-weight="600">
+    인증, Job 생성, 배차, 실시간 이벤트, 관리자 기능
+  </text>
+
+  <rect x="302" y="478" width="150" height="42" rx="21" fill="#CCFBF1"/>
+  <text x="340" y="506" fill="#115E59" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="20" font-weight="700">
+    인증
+  </text>
+  <rect x="468" y="478" width="150" height="42" rx="21" fill="#CCFBF1"/>
+  <text x="499" y="506" fill="#115E59" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="20" font-weight="700">
+    배차 엔진
+  </text>
+  <rect x="634" y="478" width="150" height="42" rx="21" fill="#CCFBF1"/>
+  <text x="666" y="506" fill="#115E59" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="20" font-weight="700">
+    실시간
+  </text>
+  <rect x="800" y="478" width="176" height="42" rx="21" fill="#CCFBF1"/>
+  <text x="836" y="506" fill="#115E59" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="20" font-weight="700">
+    알림
+  </text>
+
+  <line x1="480" y1="540" x2="480" y2="610" stroke="#94A3B8" stroke-width="5"/>
+  <line x1="800" y1="540" x2="800" y2="610" stroke="#94A3B8" stroke-width="5"/>
+
+  <rect x="210" y="612" width="540" height="130" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="280" y="680" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="30" font-weight="800">
+    PostgreSQL + PostGIS
+  </text>
+  <text x="255" y="712" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="18" font-weight="600">
+    사용자, 기사, Job, 위치 기반 조회 데이터 저장
+  </text>
+
+  <rect x="780" y="612" width="290" height="130" rx="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/>
+  <text x="842" y="680" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="30" font-weight="800">
+    Redis
+  </text>
+  <text x="818" y="712" fill="#475569" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="18" font-weight="600">
+    BullMQ 배차 큐 처리
+  </text>
+
+  <text x="80" y="810" fill="#0F172A" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="28" font-weight="800">
+    모듈
+  </text>
+
+  <rect x="170" y="770" width="150" height="56" rx="28" fill="#D1FAE5"/>
+  <text x="198" y="806" fill="#14532D" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="24" font-weight="800">
+    FREECAB
+  </text>
+
+  <rect x="350" y="770" width="180" height="56" rx="28" fill="#CFFAFE"/>
+  <text x="372" y="806" fill="#155E75" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="24" font-weight="800">
+    FREEDRIVE
+  </text>
+
+  <rect x="560" y="770" width="190" height="56" rx="28" fill="#FEF3C7"/>
+  <text x="579" y="806" fill="#92400E" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="24" font-weight="800">
+    FREECARGO
+  </text>
+
+  <rect x="780" y="770" width="170" height="56" rx="28" fill="#FCE7F3"/>
+  <text x="810" y="806" fill="#9D174D" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="24" font-weight="800">
+    FREERUN
+  </text>
+
+  <rect x="980" y="770" width="220" height="56" rx="28" fill="#EDE9FE"/>
+  <text x="998" y="806" fill="#5B21B6" font-family="Segoe UI, Apple SD Gothic Neo, Malgun Gothic, sans-serif" font-size="24" font-weight="800">
+    FREESHUTTLE
+  </text>
+</svg>
